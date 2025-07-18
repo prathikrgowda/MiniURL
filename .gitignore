@@ -1,0 +1,26 @@
+cat > .gitignore <<EOF
+# Java
+target/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# Node.js
+node_modules/
+.next/
+dist/
+.env
+npm-debug.log*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+EOF
