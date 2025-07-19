@@ -1,14 +1,14 @@
-import axios from "axios";
-import { UrlRequest, UrlResponse } from "../types";
+// frontend/src/api/shortener.ts
+import { UrlRequest, UrlResponse } from "@/types";
 
-const API_BASE = "http://localhost:8080/api/url";
-
-export const shortenUrl = async (data: UrlRequest): Promise<UrlResponse> => {
-  const response = await axios.post<UrlResponse>(`${API_BASE}/shorten`, data);
-  return response.data;
-};
-
-export const getOriginalUrl = async (code: string): Promise<string> => {
-  const response = await axios.get(`${API_BASE}/${code}`);
-  return response.request.responseURL;
-};
+export async function shortenUrl(request: UrlRequest): Promise<UrlResponse> {
+  const res = await fetch("http://localhost:8080/api/url/shorten", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(request),
+  });
+  if (!res.ok) {
+    throw new Error("Failed to shorten URL");
+  }
+  return res.json();
+}
