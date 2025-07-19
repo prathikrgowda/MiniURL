@@ -1,9 +1,13 @@
+// frontend/src/components/UrlShortenForm.tsx
 "use client";
+
 import { useState } from "react";
 import { shortenUrl } from "@/api/shortener";
 import { UrlRequest } from "@/types";
 
-interface Props { setShortUrl: (url: string) => void }
+interface Props {
+  setShortUrl: (url: string) => void;
+}
 
 export default function UrlShortenForm({ setShortUrl }: Props) {
   const [originalUrl, setOriginalUrl] = useState("");
@@ -18,12 +22,15 @@ export default function UrlShortenForm({ setShortUrl }: Props) {
       setError("Please enter a valid URL");
       return;
     }
+
     setLoading(true);
     try {
-      const { shortCode } = await shortenUrl({ originalUrl } as UrlRequest);
-      setShortUrl(`http://localhost:8080/${shortCode}`);
+      // Destructure `shortUrl` from the response
+      const { shortUrl } = await shortenUrl({ originalUrl } as UrlRequest);
+      setShortUrl(shortUrl);
       setOriginalUrl("");
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError("Something went wrong. Try again.");
     } finally {
       setLoading(false);
