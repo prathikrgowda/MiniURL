@@ -17,10 +17,27 @@ public class ShortUrl {
     @Column(name = "short_code", nullable = false, unique = true)
     private String shortCode;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    // Getters and Setters
+    // ← NEW: who owns this link
+    @Column(name = "owner_id", nullable = false)
+    private Long ownerId;
+
+    @Column(name = "expires_at")
+    private LocalDateTime expiresAt;
+
+    @Column(name = "max_clicks")
+    private Integer maxClicks;
+
+    @Column(name = "click_count", nullable = false)
+    private Integer clickCount = 0;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = true;
+
+    // ─── Getters & Setters ───────────────────────────────────────────
+
     public Long getId() {
         return id;
     }
@@ -51,5 +68,45 @@ public class ShortUrl {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    public Integer getMaxClicks() {
+        return maxClicks;
+    }
+
+    public void setMaxClicks(Integer maxClicks) {
+        this.maxClicks = maxClicks;
+    }
+
+    public Integer getClickCount() {
+        return clickCount;
+    }
+
+    public void setClickCount(Integer clickCount) {
+        this.clickCount = clickCount;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
